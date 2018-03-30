@@ -235,6 +235,15 @@ func TestFindIndex(t *testing.T) {
 	}
 }
 
+func TestFindAllIndex(t *testing.T) {
+	re := MustCompile("aa", UTF8)
+	i := re.FindAllIndex([]byte("aa123aa你猜猜aaa"), 0)
+	if len(i) != 2 {
+		t.Error("TestFindAllIndex size", len(i))
+	}
+	t.Log(i)
+}
+
 func TestExtract(t *testing.T) {
 	re := MustCompile("b(c)(d)", 0)
 	m := re.MatcherString("abcdef", 0)

@@ -46,3 +46,5 @@ Harry Waye exposed raw `pcre_exec`.
 Hazzadous added partial match support.
 
 Pavel Gryaznov added support for JIT compilation.
+
+HinaKaze added `FindAllIndex()`

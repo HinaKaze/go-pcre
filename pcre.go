@@ -595,6 +595,23 @@ func (re *Regexp) FindIndex(bytes []byte, flags int) (loc []int) {
 	return nil
 }
 
+// FindAllIndex returns the total start and end of the match,
+// or nil if no match.  loc[n][0] is the start and loc[n][1] is the end.
+func (re *Regexp) FindAllIndex(bytes []byte, flags int) (loc [][]int) {
+	m := re.Matcher(bytes, flags)
+	var (
+		preIndex, startIndex, endIndex int
+	)
+	for m.matches {
+		startIndex, endIndex = int(m.ovector[0]), int(m.ovector[1])
+		loc = append(loc, []int{preIndex + startIndex, preIndex + endIndex})
+		bytes = bytes[endIndex:]
+		preIndex += endIndex
+		m.Match(bytes, flags)
+	}
+	return
+}
+
 // ReplaceAll returns a copy of a byte slice
 // where all pattern matches are replaced by repl.
 func (re Regexp) ReplaceAll(bytes, repl []byte, flags int) []byte {
